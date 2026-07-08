@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de Presentación Profesional | DTE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover-bg: rgba(255, 255, 255, 0.07);
+            --glass-hover-border: rgba(255, 255, 255, 0.2);
+            --texto-puro: #ffffff;
+            --texto-mutated: #94a3b8;
+            --texto-links: #f1f5f9;
+            --acento: linear-gradient(90deg, #6366f1, #a855f7);
+            --acento-sólido: #8b5cf6;
+            --sombra-premium: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--texto-puro);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            overflow-x: hidden;
+        }
+
+        .portfolio-container {
+            width: 100%;
+            max-width: 580px;
+            animation: fadin 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+            position: relative;
+        }
+
+        @keyframes fadin {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .avatar-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar-container::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: var(--acento);
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0.8;
+            filter: blur(2px);
+        }
+
+        /* Reemplazo de imagen local por iniciales estilizadas */
+        .profile-avatar-fallback {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            border: 3px solid #0f172a;
+            background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.05em;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--texto-mutated);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        section {
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--acento-sólido);
+            margin-bottom: 14px;
+            padding-left: 4px;
+        }
+
+        /* --- CONTROL DE PANELES (Vistas de la botonera) --- */
+        .panel {
+            display: none;
+            width: 100%;
+        }
+
+        .panel.active {
+            display: block;
+            animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* --- BOTONES / ENLACES --- */
+        .btn-link, .panel-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            color: var(--texto-links);
+            text-decoration: none;
+            padding: 18px 24px;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            box-shadow: var(--sombra-premium);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-link:hover, .panel-trigger:hover {
+            transform: translateY(-3px);
+            background: var(--glass-hover-bg);
+            border-color: var(--glass-hover-border);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.7), 0 0 15px -3px rgba(139, 92, 246, 0.2);
+        }
+
+        .arrow-icon {
+            font-size: 0.85rem;
+            color: var(--texto-mutated);
+            transition: transform 0.3s ease, color 0.3s;
+        }
+
+        .btn-link:hover .arrow-icon, .panel-trigger:hover .arrow-icon {
+            transform: translateX(4px) rotate(-45deg);
+            color: var(--texto-puro);
+        }
+
+        .btn-featured {
+            background: var(--acento);
+            border: none;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-featured:hover {
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            transform: translateY(-3px) scale(1.01);
+        }
+
+        .btn-featured .arrow-icon { color: white; }
+
+        /* Botón de volver atrás */
+        .btn-back {
+            background: transparent;
+            border: 1px dashed var(--glass-border);
+            color: var(--texto-mutated);
+            font-size: 0.85rem;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-back:hover {
+            background: rgba(255,255,255,0.02);
+            color: var(--texto-puro);
+            border-style: solid;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: var(--texto-mutated);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portfolio-container">
+
+        <header>
+            <div class="avatar-container">
+                <!-- Se usa un contenedor de texto adaptativo para evitar fallas de carga local -->
+                <div class="profile-avatar-fallback">HF</div>
+            </div>
+            <h1>Herrera Florencia</h1>
+            <p>Portafolio Digital</p>
+        </header>
+
+        <!-- ================= PANEL PRINCIPAL ================= -->
+        <div id="panel-principal" class="panel active">
+            
+            <section>
+                <h2>Identidad y Presentación</h2>
+                <!-- REEMPLAZAR EL HREF CON TU LINK COMPARTIDO DE GOOGLE DRIVE -->
+                <a href="pdf/cv.pdf" target="_blank" class="btn-link btn-featured">
+                    <span>📄 Currículum Vitae (PDF)</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+                <!-- REEMPLAZAR EL HREF CON TU LINK COMPARTIDO DE GOOGLE DRIVE -->
+                <a href="vid/Presentación F.H.mp4" target="_blank" class="btn-link">
+                    <span>🎥 Video Presentación</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+            </section>
+
+            <section>
+                <h2>Proyectos Realizados</h2>
+                <a href="pdf/internet.pdf" target="_blank" class="btn-link">
+                    <span>📸 Posteo: Historia del Internet</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+                <a href="vid/entrevista.mp4" target="_blank" class="btn-link">
+                    <span>🎬 Reel: Entrevista sobre la IA</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+            </section>
+
+            <section>
+                <h2>Producciones Complementarias</h2>
+                <div class="panel-trigger" onclick="cambiarPanel('panel-proyectos')">
+                    <span>🏫 Proyectos Escolares y Trabajos Externos</span>
+                    <span class="arrow-icon">➔</span>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ================= PANEL SECUNDARIO (OTROS PROYECTOS) ================= -->
+        <div id="panel-proyectos" class="panel">
+            
+            <section>
+                <h2>Otros Proyectos Realizados</h2>
+                
+                <div class="panel-trigger btn-back" onclick="cambiarPanel('panel-principal')">
+                    ← Volver a la botonera principal
+                </div>
+
+                <a href="https://www.youtube.com/watch?v=NNm-13mMlnw" target="_blank" class="btn-link">
+                    <span>Documental "40 años" Capitulo 1</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+
+                <a href="https://www.youtube.com/watch?v=dqztTC8DsBM" target="_blank" class="btn-link">
+                    <span>Documental "40 años" Capitulo 2</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+
+                <a href="https://www.youtube.com/watch?v=zc14JNH0xlQ" target="_blank" class="btn-link">
+                    <span>Documental "40 años" Capitulo 3</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+
+                <!-- REEMPLAZAR EL HREF CON TU LINK COMPARTIDO DE GOOGLE DRIVE -->
+                <a href="vid/final La 21.mp4" target="_blank" class="btn-link">
+                    <span>📁 Proyecto Adicional Escolar : Cortometraje "La 21"</span>
+                    <span class="arrow-icon">➔</span>
+                </a>
+
+            </section>
+
+        </div>
+
+        <footer>
+            <p>© 2026 • Diseñado para la Dirección de Tecnología Educativa</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function cambiarPanel(idDelPanel) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(idDelPanel).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
